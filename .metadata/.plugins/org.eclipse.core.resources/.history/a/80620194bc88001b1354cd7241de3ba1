@@ -1,0 +1,11 @@
+package com.claudiobraga.global.supply.chain.finance.service;
+
+import java.util.ArrayList;
+
+import com.claudiobraga.global.supply.chain.finance.domain.model.Room;
+
+public class RoomService {
+	
+	ArrayList<Room> allRooms = new ArrayList<>();
+	ArrayList<Room> repeatedRooms = new ArrayList<>();
+}

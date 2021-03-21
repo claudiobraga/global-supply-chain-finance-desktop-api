@@ -1,0 +1,75 @@
+package com.claudiobraga.global.supply.chain.finance.service;
+
+public class RoomService {
+	
+	//VARIAVEIS GLOBAIS
+	static ArrayList<Room> allRooms = new ArrayList<>();//ARRAY COM TODOS OS QUARTOS
+	static ArrayList<Room> repeatedRooms = new ArrayList<>();//ARRAY COM QUARTOS REPETIDOS
+
+	static Path archive = Paths.get("C:/Users/cjbde/Documents/input1.txt");
+	
+	private static void loadArrayFromFile() throws IOException {
+		List<String> lines = Files.readAllLines(archive);
+		ArrayList<Integer> valores;
+		String auxConverter = "";
+
+		for(int i = 0; i < lines.size(); i++){
+			String rooms = lines.get(i);
+			char ch[] = rooms.toCharArray();
+			valores = new ArrayList<>();
+			for(int a = 0; a < ch.length; a++) {
+				if(ch[a] != 'x' || ch[a] != 'x'){
+					auxConverter += ch[a];
+				} else {
+					valores.add(Integer.parseInt(auxConverter));
+					auxConverter = "";
+				}
+				if(a == ch.length - 1){
+					valores.add(Integer.parseInt(auxConverter));
+                    			auxConverter = "";
+				}
+			}
+			Room ax = new Room(valores.get(0), valores.get(1), valores.get(2));
+			allRooms.add(ax);
+		}
+	}
+
+	private static void showAllRooms(ArrayList<Room> rs){
+    	int d=1;
+   		int total=0;
+    	for(Room k: rs){
+        		System.out.println(d+" - "+k.toString());
+        		total+=k.getTotal();
+        		d++;
+    	}
+    	System.out.println("TOTAL SIZE OF ALL ROOMS: [ "+total+" ]");
+	 }
+	
+	private static void selectedRepeatedRooms(){
+		int count = 0;
+		for(Room a: allRooms){
+			for(int x = 1; x<allRooms.size(); x++){
+				if(a.getLength()==allRooms.get(x).getLength() && a.getWidth() == allRooms.get(x).getWidth() && a.getHeight() == allRooms.get(x).getHeight()){
+					count++;
+				}
+			}
+			if(count >1){
+				if(repeatedRooms.isEmpty()){
+					repeatedRooms.add(a);
+				}else{
+					boolean v=false;
+					for(Room sa: repeatedRooms){
+						if(sa.getHeight()==a.getHeight() && sa.getLength()==a.getLength() && sa.getWidth()==a.getWidth()){
+							v=true;
+						}
+					}
+					if(!v){
+						repeatedRooms.add(a);
+					}
+				}
+			}
+			count = 0;
+		}
+	}
+
+}

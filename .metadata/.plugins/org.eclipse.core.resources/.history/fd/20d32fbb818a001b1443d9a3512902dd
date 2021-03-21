@@ -1,0 +1,21 @@
+package com.claudiobraga.global.supply.chain.finance.service;
+
+import java.util.ArrayList;
+
+import com.claudiobraga.global.supply.chain.finance.domain.model.Room;
+
+public class RoomService {
+	
+	ArrayList<Room> allRooms = new ArrayList<>();
+	ArrayList<Room> repeatedRooms = new ArrayList<>();
+	
+	
+	//System.out.println("Total of Rooms " + allRooms.size());
+	
+
+			
+//			System.out.println("Dimensions = " + r.surfaceAreaRoomCalculation());
+//			System.out.println("Additional Wallpaper for this Room: = " + r.smallestSide() + " feet of wallpaper");
+//			System.out.println("Total of Wallpaper need " + r.surfaceAreaRoomCalculation() + " + " + r.smallestSide());
+
+}

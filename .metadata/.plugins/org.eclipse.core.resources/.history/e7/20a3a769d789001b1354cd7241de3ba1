@@ -1,0 +1,124 @@
+package com.claudiobraga.global.supply.chain.finance.controller;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.claudiobraga.global.supply.chain.finance.domain.model.Room;
+
+public class RoomController {
+	
+
+	static ArrayList<Room> allRooms = new ArrayList<>();
+	static ArrayList<Room> repeatedRooms = new ArrayList<>();
+	
+	static Path archive = Paths.get("C:/Users/cjbde/Documents/input1.txt");
+
+	public static void main(String[] args) throws IOException {
+		
+		System.out.println("***** ALL ROOMS IN THE INPUT1 FILE *****");
+		loadingArrayFromInput1File();
+		quickSort(null, 0, 0);
+    	System.out.println("\nALL ROOMS WITH DIMENSIONS, PLUS EXTRA WALLPAPER NEEDED FOR EACH ROOM,"
+    			+ " PLUS THE CALCULATIONS!\n");
+    	showAllRooms(allRooms);       
+    	selectedRepeatedRooms();
+   	 	System.out.println("\n\t***** ALL REPEATED ROOMS *****\n");
+    	showAllRooms(repeatedRooms);
+	}
+		
+	private static void loadingArrayFromInput1File() throws IOException {
+		List<String> lines = Files.readAllLines(archive);
+		
+		ArrayList<Integer> input1Values;
+		
+		String auxConverter = "";
+		
+		for (int i = 0; i < lines.size(); i++) {
+			String rooms = lines.get(i);
+			
+			char ch[] = rooms.toCharArray();
+			input1Values = new ArrayList<>();
+			for (int j = 0; j < ch.length; j++) {
+				if (ch[j] !='x' || ch[j] !='x') {
+					auxConverter += ch[j];
+				}else {
+					input1Values.add(Integer.parseInt(auxConverter));
+					auxConverter = "";
+				}
+				if (j == ch.length - 1) {
+					input1Values.add(Integer.parseInt(auxConverter));
+					auxConverter = "";
+				}
+			}
+			Room room = new Room (input1Values.get(0), input1Values.get(1), input1Values.get(2));
+			allRooms.add(room);
+			
+			System.out.println("Room " + (i + 1) + ": " + rooms);
+		}
+	}
+		
+		private static void showAllRooms(ArrayList<Room> rooms){
+			int count  = 1, total = 0;
+			for (Room room : rooms) {
+				System.out.println(count+" - "+ room.toString());
+				total += room.getTotal();
+				count++;
+			}
+			System.out.println("\nTotal square feet of Wallpaper that the Company should order for all" + 
+					"Rooms: ["+total+"]" );
+		}
+		
+		
+		private static void selectedRepeatedRooms() {
+			int count = 0;
+			for (Room room : allRooms) {
+				for (int i = 0; i < allRooms.size(); i++) {
+					if (room.getLength() == allRooms.get(i).getLength() &&
+						room.getWidth() == allRooms.get(i).getWidth() &&
+						room.getHeight() == allRooms.get(i).getHeight()) {
+						count++;
+					}
+				}
+				if (count > 1) {
+					repeatedRooms.add(room);
+				}
+				count = 0;
+			}
+		}
+		
+		public static void quickSort(int allRooms[], int begin, int end){
+	        if (begin < end) {
+	            int partitionIndex = partition(allRooms, begin, end);
+
+	            // Recursively sort elements of the 2 sub-arrays
+	            quickSort(allRooms, begin, partitionIndex-1);
+	            quickSort(allRooms, partitionIndex+1, end);
+	        }
+	    }
+
+	    private static int partition(int allRooms[], int begin, int end){
+	        int pivot = allRooms[end];
+	        int i = (begin-1);
+
+	        for (int j=begin; j<end; j++)
+	        {
+	            if (allRooms[j] <= pivot) {
+	                i++;
+
+	                int swapTemp = allRooms[i];
+	                allRooms[i] = allRooms[j];
+	                allRooms[j] = swapTemp;
+	            }
+	        }
+
+	        int swapTemp = allRooms[i+1];
+	        allRooms[i+1] = allRooms[end];
+	        allRooms[end] = swapTemp;
+
+	        return i+1;
+	    }
+	}

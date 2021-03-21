@@ -1,0 +1,10 @@
+1616105539798	Rename local variable 'rinput'
+1616189421992	Rename method 'loadingArrayFromFile'
+1616189522589	Rename local variable 'inputValues'
+1616192905012	Encapsulate field 'total'
+1616274594274	Move compilation unit
+1616326385309	Rename local variable 'room'
+1616344385111	Rename method 'selectedRepeatedRooms'
+1616357536108	Delete element
+1616357548138	Delete element
+1616357693766	Rename type 'RoomController'

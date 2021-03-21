@@ -1,0 +1,98 @@
+package com.claudiobraga.global.supply.chain.finance.domain.model;
+
+public class Room {
+	
+	private int length;
+	private int width;
+	private int height;
+	public int dimensions;
+	public int total;
+	private int position;
+	private  int counting = 0;
+	
+	public Room() {
+		
+	}
+	
+	public Room(int length, int width, int height ) {
+		
+		this.length = length;
+		this.width = width;
+		this.height = height;
+		++counting;
+		position += counting;
+	}
+	
+	public Room(String length, String width, String height) {
+		
+		this.length = Integer.parseInt(length);
+		this.width = Integer.parseInt(width);
+		this.height = Integer.parseInt(length);
+	}
+	
+    public int surfaceAreaRoomCalculation() {
+        dimensions = (length * 2 * width) + (width * 2 * height) + (height * 2 * length);        
+        return dimensions;
+    }
+    
+    public int smallestSide() {
+    	
+    	int min = 0;
+    	int a = (length * width);
+    	int b = (width * height);
+    	int c = (height * length);
+    	
+    	if (a < b) {
+			min = a;
+		}else {
+			min = b;
+			if (min > c) {
+				min = c;
+			}
+		}
+    	return min;
+    }
+    
+    @Override
+    public String toString() {
+    	return " Room ["+position+"]{" + "length=" + length + ", width=" + width + ", height=" + height + 
+    			"}"+ " Dimensions = "+surfaceAreaRoomCalculation()+" + "+smallestSide()+" = "
+    			+(surfaceAreaRoomCalculation()+smallestSide());
+    }
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getDimensions() {
+		return dimensions;
+	}
+
+	public void setDimensions(int dimensions) {
+		this.dimensions = dimensions;
+	}
+	
+	public int getTotal() {
+		return surfaceAreaRoomCalculation()+smallestSide();
+	}
+}
